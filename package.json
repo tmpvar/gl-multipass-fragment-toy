@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "gl-clear": "0.0.1",
+    "gl-fbo": "^2.0.3",
+    "gl-quad": "^1.1.2",
+    "glslify": "^1.6.0"
+  }
+}
