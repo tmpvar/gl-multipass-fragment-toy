@@ -1,8 +1,20 @@
 {
+  "scripts": {
+    "start": "beefy demo/entry.js --live --open"
+  },
+  "browserify": {
+    "transform": [
+      "glslify"
+    ]
+  },
   "dependencies": {
     "gl-clear": "0.0.1",
     "gl-fbo": "^2.0.3",
     "gl-quad": "^1.1.2",
     "glslify": "^1.6.0"
+  },
+  "devDependencies": {
+    "beefy": "^2.1.1",
+    "fc": "^1.2.0"
   }
 }
