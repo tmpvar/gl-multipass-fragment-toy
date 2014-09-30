@@ -4,7 +4,7 @@ var createFBO = require('gl-fbo');
 
 module.exports = createMultipassFragmentToy;
 
-function createMultipassFragmentToy(gl, shader, fn) {
+function createMultipassFragmentToy(gl, shader) {
   var myShape = [1, 1];
   var fboIndex = 0;
   var fbos = [
@@ -14,7 +14,7 @@ function createMultipassFragmentToy(gl, shader, fn) {
 
   var quad = createQuad(gl);
 
-  function render(shape) {
+  function render(shape, fn, shaderOverride) {
 
     if (shape[0] !== myShape[0] || shape[1] !== myShape[1]) {
       myShape[0] = shape[0];
@@ -27,17 +27,31 @@ function createMultipassFragmentToy(gl, shader, fn) {
       gl.viewport(0, 0, myShape[0], myShape[1]);
     }
 
-    shader.bind();
     var last = fbos[fboIndex];
     fboIndex = (fboIndex+1) % 2;
+
+
+    var currentShader;
+    if (shaderOverride) {
+      currentShader = shaderOverride;
+    } else {
+      currentShader = Array.isArray(shader) ? shader[fboIndex] : shader;
+    }
+
+    currentShader.bind();
+
     fbos[fboIndex].bind();
 
     // allow the user to setup uniforms
-    fn(last, shader, myShape);
+    fn && fn(last, currentShader, myShape);
 
     quad.draw();
 
     return fbos[fboIndex];
+  }
+
+  render.setup = function setup(shader, shape) {
+    render()
   }
 
   return render;
