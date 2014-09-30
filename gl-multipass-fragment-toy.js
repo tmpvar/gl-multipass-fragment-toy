@@ -16,8 +16,6 @@ function createMultipassFragmentToy(gl, shader, fn) {
 
   function render(shape) {
 
-    var shapeChanged =
-
     if (shape[0] !== myShape[0] || shape[1] !== myShape[1]) {
       myShape[0] = shape[0];
       myShape[1] = shape[1];
